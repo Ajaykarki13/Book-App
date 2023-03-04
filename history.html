@@ -15,7 +15,7 @@
 <body>
 
     <div class="top">
-        <h1>Book Store App</h1>
+        <h1><a href="./index.html">Book Store App</a></h1>
     </div>
     <br>
 
@@ -24,7 +24,7 @@
         <button class="butnclear" onclick="clearSearch()">Clear Search</button>
         <button class="previous" onclick="previousSearch()">Previous search</button>
 
-    </div>
+    </div><br><br>
 
     <div class="tablecontainer">
        
@@ -33,10 +33,14 @@
 
     <script>
 let searchstorage = JSON.parse(localStorage.getItem("searched"));
-console.log(searchstorage)
-searchstorage.map((data)=>
-{console.log(data)
-    localStorage.setItem("previous",JSON.stringify(data));
+localStorage.setItem("previous",JSON.stringify(searchstorage));
+let olddata =  JSON.parse(localStorage.getItem("previous"));console.log(olddata)
+
+olddata.map((data)=>
+{
+    localStorage.setItem("last",JSON.stringify(data));
+    console.log(data)
+   // localStorage.setItem("previous",JSON.stringify(data));
 let container=document.querySelector(".tablecontainer");
 container.innerHTML += 
     `

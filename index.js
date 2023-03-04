@@ -19,7 +19,12 @@ function dataDisplay(e) {
     fetch(url)
         .then(response => response.json())
         .then((data) => { let newarr = data.items; console.log(newarr);
-           bookdata = newarr;
+        let filter = newarr.filter((x) => { 
+          return x.volumeInfo.title.toLowerCase().includes(text.toLowerCase()) 
+              || x.volumeInfo.authors[0].toLowerCase().includes(text.toLowerCase());
+      });
+      
+           bookdata = filter;
           obj={time:time,date:date,query:query,bookdata:bookdata}
           
           let list = localStorage.getItem("searched");
@@ -33,15 +38,14 @@ array.push(obj);
           else
           {  array.push(obj)  }
              display.innerHTML = '';
-       // let text = inputtext.value;
-       // let filter = newarr.filter((x) => { return (x.volumeInfo["title"].includes(text) || x.volumeInfo["authors"].includes(text)) })
-
-           // console.log(filter)
-            newarr.map((books) => {//console.log(books.volumeInfo)
+      // let text = inputtext.value;
+   
+            console.log(filter);
+            filter.map((books) => {//console.log(books.volumeInfo)
                 display.innerHTML +=
     
-                    `<div class="card" style="width: 18rem;">
-                <img src="${books.volumeInfo.imageLinks["thumbnail"]}" class="card-img-top" alt="...">
+                    `<div class="card mb-4" style="width: 18rem;">
+                <img src="${books.volumeInfo.imageLinks["smallThumbnail"]}" class="card-img-top" alt="...">
                 <div class="card-body">
                   <h5 class="card-title">Title: ${books.volumeInfo["title"]}  </h5>
                   <p class="card-text">Author Name: ${books.volumeInfo["authors"]}  </p>
@@ -52,14 +56,15 @@ array.push(obj);
                   <li class="list-group-item">PageCount: ${books.volumeInfo["pageCount"]} </li>
                 </ul>
                 <div class="card-body">
-                <button>Buy link<a href="${books.saleInfo["buyLink"]}"></a></button>
+                <button><a href="${books.saleInfo.buyLink}">Buy Link</a></button>
                 </div>
               </div>`
              
     
     
             })})
-            .catch(error=>console.log("Error",error))
+            .catch((e)=>{
+              console.log("Error",e)})
 
          
            

@@ -15,18 +15,20 @@
 <body>
 
     <div class="top">
-        <h1>Book Store App</h1>
+        <h1><a href="./index.html">Book Store App</a></h1>
     </div>
+    <br>
+    <h1>Search results..</h1>
     <br><br>
-    <div class="tablecontainer"></div>
+    <div class="tablecontainer"></div> <br>
     <div class="container d-flex gap-1 flex-wrap"></div>
 
 <script>
-let books = JSON.parse(localStorage.getItem("previous"))
+let books = JSON.parse(localStorage.getItem("last"))
 console.log(books)
 
     let container=document.querySelector(".tablecontainer");
-    let container2=document.querySelector(".container")
+   // let container2=document.querySelector(".container")
 container.innerHTML += 
     `
     <table class="table table-dark table-hover">
@@ -39,9 +41,10 @@ container.innerHTML +=
             </table>
     `
     books.bookdata.map((x)=>{
+        let container2=document.querySelector(".container")
 container2.innerHTML +=
 `<div class="card" style="width: 18rem;">
-                <img src="${x.volumeInfo.imageLinks["thumbnail"]}" class="card-img-top" alt="...">
+                <img src="${x.volumeInfo.imageLinks["smallThumbnail"]}" class="card-img-top" alt="...">
                 <div class="card-body">
                   <h5 class="card-title">Title: ${x.volumeInfo["title"]}  </h5>
                   <p class="card-text">Author Name: ${x.volumeInfo["authors"]}  </p>
@@ -55,7 +58,7 @@ container2.innerHTML +=
                 <button>Buy link<a href="${x.saleInfo["buyLink"]}"></a></button>
                 </div>
               </div>`
-})
+});
 
 </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
